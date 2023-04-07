@@ -11,7 +11,7 @@
     "check-eslint": "eslint './src/**/*{js,ts,jsx,tsx}'",
     "lint": "yarn check-typescript && yarn check-eslint",
     "release": "standard-version",
-    "prepare": "husky install"
+    "prepare": "husky install" 
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
