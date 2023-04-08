@@ -1,6 +1,6 @@
 import { Children, useEffect, useState } from 'react'
 
-import { Route } from 'src/Types/Route'
+import { Route } from 'src/CustomTypes/Types/Route'
 
 const useRouting = (routerChildren: React.ReactElement): [Route, (path: string) => void] => {
   const children = Children.toArray(routerChildren)

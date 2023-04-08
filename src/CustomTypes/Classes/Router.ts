@@ -1,3 +1,3 @@
-export type RouterContext = {
+export class RouterCtxt {
   navigateTo: (path: string) => void
 }

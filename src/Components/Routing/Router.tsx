@@ -1,11 +1,11 @@
 import { createContext } from 'react'
-
 import useRouting from 'src/Hooks/useRouting'
-import { RouterContext } from 'src/Types/RouterContext'
+import { RouterCtxt } from 'src/CustomTypes/Classes/Router'
+
+export const RouterContext = createContext<RouterCtxt>(new RouterCtxt())
 
 const Router = ({ children }): JSX.Element => {
   const [route, navigateTo] = useRouting(children)
-  const RouterContext = createContext<RouterContext | null>(null)
 
   return (
     <RouterContext.Provider value={{ navigateTo }}>
