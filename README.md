@@ -1,5 +1,10 @@
 # TrakaMobile
 
+## Tech Stack
+- App: React-Native, Expo, TypeScript, Nativewind, RTK Query, SQLite
+- Backend: Go, Gin
+- Database: Postgres
+
 ## How To Run Myself
 1. Run ```git clone https://github.com/emilsharkov/TrakaMobile``` to clone the repository
 2. Run ```npm install``` to install any dependencies
