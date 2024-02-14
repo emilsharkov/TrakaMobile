@@ -5,6 +5,10 @@
 - Backend: Go, Gin
 - Database: Postgres
 
+## Hosting
+- Backend: https://fly.io/launchpad or https://railway.app
+- Database: https://neon.tech/
+
 ## How To Run Myself
 1. Run ```git clone https://github.com/emilsharkov/TrakaMobile``` to clone the repository
 2. Run ```npm install``` to install any dependencies
