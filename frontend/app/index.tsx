@@ -11,7 +11,7 @@ export default function App() {
       <Card onPress={() => setOpen(true)}>
         <Text>Open up App.js to start working on your app!</Text>
       </Card>
-      <Dialog isOpen={open}>
+      <Dialog className='w-[80%]' open={open} setOpen={setOpen}>
         <Text>This is a dialog!</Text>
       </Dialog>
       <StatusBar style="auto" />
