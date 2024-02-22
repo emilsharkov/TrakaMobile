@@ -1,15 +1,16 @@
+import { combineClasses } from "@/utils/combine";
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export interface DialogProps {
-    className?: string;
+    styling?: string;
     open: boolean;
     setOpen: (open: boolean) => void;
-    children?: React.ReactElement; 
+    children?: React.ReactNode; 
 }
 
 const Dialog = (props: DialogProps) => {
-    const {children,className,open,setOpen} = props
+    const {children,styling,open,setOpen} = props
 
     return (
         <>
@@ -23,7 +24,7 @@ const Dialog = (props: DialogProps) => {
                             onPress={() => setOpen(false)}
                         />
                     </View>
-                    <View className={`${className} z-50 opacity-100 p-4 h-1/2 border-0 rounded-lg shadow-lg absolute bg-white outline-none focus:outline-none`}>
+                    <View className={combineClasses(styling,'z-50 opacity-100 p-4 h-1/2 border-0 rounded-lg shadow-lg absolute bg-white outline-none focus:outline-none')}>
                         {children}
                     </View>
                 </>
