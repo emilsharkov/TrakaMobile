@@ -3,20 +3,61 @@ import Card from '@/components/Card/Card';
 import Dialog from '@/components/Dialog/Dialog';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import { Gallery, GalleryItem } from '@/components/Gallery/Gallery';
 
 export default function App() {
-  const [open,setOpen] = useState<boolean>(false)
+  const numColumns = 2
+  const horizontal = false
   return (
-    <View className="flex-1 items-center justify-center bg-[#fafafa]">
-      <Card styling="bg-red-400" onPress={() => setOpen(true)}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </Card>
-      <Dialog styling='w-[80%]' open={open} setOpen={setOpen}>
-        <Text>This is a dialog!</Text>
-      </Dialog>
-      <Button onPress={() => console.log('hello')} variant='default'><Text>This is a button</Text></Button>
-      <StatusBar style="auto" />
-    </View>
+    // <Gallery isHorizontal={true} numColumns={2}>
+    //   <GalleryItem>
+    //     <Card>
+    //     <Text>Beh</Text>
+    //     <Text>Beh</Text>
+    //     <Text>Beh</Text>
+    //     <Text>Beh</Text>
+    //     <Text>Beh</Text>
+    //     </Card>
+    //   </GalleryItem>
+    //   <GalleryItem>
+    //     <Card><Text>Beh</Text></Card>
+    //   </GalleryItem>
+    //   <GalleryItem>
+    //     <Card><Text>Beh</Text></Card>
+    //   </GalleryItem>
+    // </Gallery>
+    <ScrollView style={ { flex: 1, alignSelf: 'stretch' }}>
+      <View
+        style={[
+          {
+            flex: 1,
+            flexDirection: horizontal ? 'column' : 'row',
+          },
+        ]}
+      >
+        {Array.from(Array(numColumns), (_, num) => {
+          return (
+            <View
+              style={{
+                flex: 1 / numColumns,
+                flexDirection: horizontal ? 'row' : 'column',
+              }}
+            >
+              <View>
+                <Card><Text>Beh</Text></Card>
+              </View>
+              <View>
+                <Card>
+                <Text>Beh</Text>
+                <Text>Beh</Text>
+                <Text>Beh</Text>
+                </Card>
+              </View>
+            </View>
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 }
