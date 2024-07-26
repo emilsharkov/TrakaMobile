@@ -1,25 +1,71 @@
-import { combineClasses } from "@/utils/combine";
 import React, { forwardRef } from "react";
-import { View,Text, GestureResponderEvent, TouchableOpacity } from "react-native"
+import { TouchableOpacity, View, Text } from "react-native"
+import { cn } from "../../utils/classNameUtils"
 
-export interface CardProps {
-    styling?: string;
-    onPress?: (e: GestureResponderEvent) => void;
-    children?: React.ReactNode;
-}
-
-const Card = forwardRef<React.ElementRef<typeof TouchableOpacity>, CardProps>((props, ref) => {
-    const { styling,children,onPress } = props
-
+const Card = forwardRef<React.ElementRef<typeof TouchableOpacity>,React.ComponentPropsWithoutRef<typeof TouchableOpacity>>((props, ref) => {
+    const { className,...rest } = props
     return (
         <TouchableOpacity
             ref={ref} 
-            onPress={onPress}
-            className={combineClasses(styling,'p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700')}
-        >
-            {children}
-        </TouchableOpacity>
+            className={cn('rounded-lg border border-border bg-card shadow-sm',className)}
+            {...rest}
+        />
     )
-})
+});
 
-export default Card
+const CardHeader = React.forwardRef<React.ElementRef<typeof View>, React.ComponentPropsWithoutRef<typeof View>>((props, ref) => {
+    const { className,...rest } = props
+    return (
+        <View 
+            ref={ref} 
+            className={cn('flex flex-col space-y-1.5 p-6', className)} 
+            {...rest} 
+        />
+    )
+});
+  
+const CardTitle = React.forwardRef<React.ElementRef<typeof Text>, React.ComponentPropsWithoutRef<typeof Text>>((props, ref) => {
+    const { className,...rest } = props
+    return (
+        <Text
+            ref={ref}
+            className={cn('text-2xl text-card-foreground font-semibold leading-none tracking-tight',className)}
+            {...rest}
+        />
+    )
+});
+
+const CardDescription = React.forwardRef<React.ElementRef<typeof Text>, React.ComponentPropsWithoutRef<typeof Text>>((props, ref) => {
+    const { className,...rest } = props
+    return (
+        <Text 
+            ref={ref} 
+            className={cn('text-sm text-muted-foreground', className)} 
+            {...rest} 
+        />
+    )
+});
+
+const CardContent = React.forwardRef<React.ElementRef<typeof View>, React.ComponentPropsWithoutRef<typeof View>>((props, ref) => {
+    const { className,...rest } = props
+    return (
+        <View 
+            ref={ref} 
+            className={cn('p-6 pt-0', className)} 
+            {...rest} 
+        />
+    )
+});
+
+const CardFooter = React.forwardRef<React.ElementRef<typeof View>, React.ComponentPropsWithoutRef<typeof View>>((props, ref) => {
+    const { className,...rest } = props
+    return (
+        <View 
+            ref={ref} 
+            className={cn('flex flex-row items-center p-6 pt-0', className)} 
+            {...rest} 
+        />
+    )
+});
+  
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };
