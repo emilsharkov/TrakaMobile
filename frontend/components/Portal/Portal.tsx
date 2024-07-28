@@ -8,10 +8,6 @@ interface PortalProps {
     children?: React.ReactNode;
 }
 
-interface PortalRootProps {
-    children?: React.ReactNode;
-}
-
 interface PortalContent {
     children: React.ReactNode;
     uuid: string;
@@ -40,13 +36,17 @@ const Portal = (props: PortalProps) => {
     const portalUUID = useMemo(() => uuid(),[])
     
     useEffect(() => {
+        return () => unmountPortalContent(portalUUID)
+    },[])
+
+    useEffect(() => {
         open ? mountPortalContent(children,portalUUID): unmountPortalContent(portalUUID)
     },[open])
     
     return null
 }
 
-const PortalRoot = (props: PortalRootProps) => {
+const PortalRoot = () => {
     const [portalsContent,setPortalsContent] = useState<PortalContent[]>([])
 
     const mountPortalContent = (children: React.ReactNode, uuid: string) => {
