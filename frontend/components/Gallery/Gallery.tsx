@@ -1,15 +1,13 @@
-import React, { forwardRef, useState } from 'react';
+import { cn } from '@/utils/classNameUtils';
+import React, { forwardRef, useMemo, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
-export interface GalleryProps {
-    children?: React.ReactNode;
+interface GalleryProps extends React.ComponentPropsWithoutRef<typeof ScrollView> {
     numColumns?: number;
     isHorizontal?: boolean;
 }
 
-export interface GalleryItemProps {
-    children?: React.ReactNode;
-}
+interface GalleryItemProps extends React.ComponentPropsWithoutRef<typeof View> {}
 
 type GalleryContextProps = {
     numColumns: number;
@@ -29,24 +27,36 @@ const useGalleryContext = () => {
 }
 
 const Gallery = forwardRef<ScrollView, GalleryProps>((props, ref) => {
-    const { numColumns = 1, isHorizontal = true, children } = props
-
+    const { numColumns = 1, isHorizontal = true, className, children, ...rest } = props
+    const flexDirection = isHorizontal ? 'col' : 'row'
+    
+    const arraysOfChildren: React.ReactNode[][] = useMemo(() => {
+        const childrenArray = React.Children.toArray(children)
+        const arraysOfChildren: React.ReactNode[][] = Array.from({ length: numColumns }, () => []);
+        childrenArray.forEach((child: React.ReactNode, index: number) => {
+            arraysOfChildren[index % numColumns].push(childrenArray[index])
+        })
+        return arraysOfChildren;
+    }, [children, numColumns])
+    
     return (
         <GalleryContext.Provider value={{numColumns,isHorizontal}}>
             <ScrollView
                 ref={ref}
-                style={ { flex: 1, alignSelf: 'stretch' }}
+                className={cn(`flex-1 flex-${flexDirection}`, className)}
+                {...rest}
             >
-                <View
-                    style={[
-                    {
-                        flex: 1,
-                        flexDirection: isHorizontal ? 'column' : 'row',
-                    },
-                    ]}
-                >
-                    {children}
-                </View>
+                {arraysOfChildren.map((arrayOfChildren: React.ReactNode[], index: number) => {
+                    return (
+                        <View className='flex-1'>
+                            {arrayOfChildren.map((child: React.ReactNode, index: number) => {
+                                return (
+                                    <>{child}</>
+                                )
+                            })}
+                        </View>
+                    )
+                })}
             </ScrollView>
         </GalleryContext.Provider>
         
@@ -54,16 +64,15 @@ const Gallery = forwardRef<ScrollView, GalleryProps>((props, ref) => {
 })
 
 const GalleryItem = forwardRef<View, GalleryItemProps>((props, ref) => {
-    const { children } = props
+    const { className, children, ...rest } = props
     const { isHorizontal,numColumns } = useGalleryContext()
+    const flexDirection = isHorizontal ? 'row' : 'col'
 
     return (
         <View
             ref={ref}
-            style={{
-                flex: 1 / numColumns,
-                flexDirection: isHorizontal ? 'row' : 'column',
-            }}
+            className={cn(`flex-${flexDirection}`, className)}
+            {...rest}
         >
             {children}
         </View>
@@ -71,3 +80,21 @@ const GalleryItem = forwardRef<View, GalleryItemProps>((props, ref) => {
 })
 
 export { Gallery, GalleryItem }
+
+
+{/* <SafeAreaView className="flex-1">
+        <ScrollView className="flex-1" contentContainerClassName="flex-row">
+            <FlatList
+            className="flex-1 w-full"
+            data={[1,2,3,4,5,6]}
+            renderItem={({item}) => <View style={{height:20*item}} className={`bg-red-500 border rounded-lg`}></View>}
+            // keyExtractor={item => item}
+            />
+            <FlatList
+            className="flex-1 w-full"
+            data={[1,2,3,4]}
+            renderItem={({item}) => <View className="bg-red-500"><CardExample/></View>}
+            // keyExtractor={item => item}
+            />
+        </ScrollView>
+    </SafeAreaView> */}
