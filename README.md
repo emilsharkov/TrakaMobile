@@ -1,5 +1,5 @@
 # TrakaMobile
-This is a work in progress and currently paused. I am creating a react native ui library before proceeding @```https://github.com/emilsharkov/prost-ui```
+This is a work in progress and currently paused. I am creating a react native ui library before proceeding @```https://github.com/emilsharkov/xristos-ui```
 
 ## Overview
 Traka is an IOS/Android app used to track your daily habits. You can use it to set daily, monthly, and yearly goals for categories such as fitness, education, hygiene, and health. This app is meant to be offline-first meaning that it will sync your results with the cloud periodically whenever a connection is available.
