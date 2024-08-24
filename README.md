@@ -1,17 +1,15 @@
 # TrakaMobile
-This is a work in progress and currently paused. I am creating a react native ui library before proceeding @```https://github.com/emilsharkov/prost-ui```
+This is a work in progress and currently paused. I am creating a react native ui library before proceeding @```https://github.com/emilsharkov/xristos-ui```
 
 ## Overview
-Traka is an IOS/Android app used to track your daily habits. You can use it to set daily, monthly, and yearly goals for categories such as fitness, education, hygiene, and health. This app is meant to be offline-first meaning that it will sync your results with the cloud periodically whenever a connection is available.
+Traka is an IOS/Android app used to track your daily habits. You can use it to set daily, monthly, and yearly goals for categories such as fitness, education, hygiene, and health.
 
 ## Tech Stack
-- App: React-Native, Expo, TypeScript, Nativewind, RTK Query, SQLite
-- Backend: Go, Gin
-- Database: Postgres
-
-## Hosting
-- Backend: https://fly.io/launchpad or https://railway.app
-- Database: https://neon.tech/
+- React Native with Expo 
+- TypeScript 
+- Nativewind
+- RTK Query
+- Supabase
 
 ## How To Run Myself
 1. Run ```git clone https://github.com/emilsharkov/TrakaMobile``` to clone the repository
